@@ -25,16 +25,20 @@ async function createRecommendation(body: body) {
     return bodyInfo
 }
 
-async function getRecommendations() {
-    const object = await prisma.recommendation.findMany()
+async function createRecommendationWithScore(score: number) {
+    const body = await createBodyRecommendation()
+    const recommendation = await prisma.recommendation.create({
+        data: {...body, score: score}
+    });
 
-    return object
+    return recommendation
 }
+
 
 const recommendationFactory = {
     createBodyRecommendation,
     createRecommendation,
-    getRecommendations
+    createRecommendationWithScore
 }
 
 export default recommendationFactory
