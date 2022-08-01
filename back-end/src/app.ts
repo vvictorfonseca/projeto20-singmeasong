@@ -14,7 +14,7 @@ app.use("/recommendations", recommendationRouter);
 
 if (process.env.NODE_ENV === "test") {
     console.log("rota para testes e2e")
-    app.use(e2eRouter)
+    app.use("/recommendations", e2eRouter)
 }
 
 app.use(errorHandlerMiddleware);
