@@ -1,11 +1,10 @@
-import app from "../src/app.js";
+import app from "../../src/app.js";
 import supertest from "supertest";
-import { prisma } from "../src/database.js"
+import { prisma } from "../../src/database.js"
 
-import recommendationFactory from "./factories/recommendationFactory.js";
+import recommendationFactory from "../factories/recommendationFactory.js";
 
-import { createScenarioWithRecommendationsWith5NegativeScore, createScenarioWithRecommendations } from "./factories/scenarioFactory.js"
-import { isArgumentsObject } from "util/types";
+import { createScenarioWithRecommendationsWith5NegativeScore, createScenarioWithRecommendations } from "../factories/scenarioFactory.js"
 
 const agent = supertest(app);
 
@@ -109,7 +108,7 @@ describe("POST /recommendations/:id/downvote", () => {
 
 describe("GET /recommendations", () => {
     it("should return last 10 recommendations", async () => {
-        const scenario = await createScenarioWithRecommendations(15)
+        await createScenarioWithRecommendations(15)
 
         const response = await agent.get("/recommendations")
 
@@ -127,7 +126,7 @@ describe("GET /recommendations/:id", () => {
     })
 
     it("should return 404 for invalid id", async () => {
-        const scenario = await createScenarioWithRecommendations(1)
+        await createScenarioWithRecommendations(1)
 
         const response = await agent.get(`/recommendations/0`)
 
@@ -137,7 +136,7 @@ describe("GET /recommendations/:id", () => {
 
 describe("GET /recommendations/random", () => {
     it("should return random recommendation", async () => {
-        const scenario = await createScenarioWithRecommendations(15)
+        await createScenarioWithRecommendations(10)
 
         const response = await agent.get(`/recommendations/random`);
 
@@ -153,7 +152,7 @@ describe("GET /recommendations/random", () => {
 
 describe("GET /recommendations/top/:amount", () => {
     it("should return top 5 recommendations", async () => {
-        const scenario = await createScenarioWithRecommendations(10)
+        await createScenarioWithRecommendations(10)
 
         const response = await agent.get(`/recommendations/top/5`)
 
@@ -164,4 +163,4 @@ describe("GET /recommendations/top/:amount", () => {
 
 afterAll(async () => {
     await prisma.$disconnect();
-})
+});

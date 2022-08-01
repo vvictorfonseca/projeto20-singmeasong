@@ -7,7 +7,7 @@ import { recommendationService } from "../../src/services/recommendationsService
 import { recommendationRepository } from "../../src/repositories/recommendationRepository"
 
 import { notFoundError } from "../../src/utils/errorUtils.js"
-import exp from "constants";
+
 
 describe("recommendation service test for create recommendation", () => {
     it("should create recommendation", async () => {
